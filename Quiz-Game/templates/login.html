@@ -1,0 +1,39 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-center">Login</h1>
+<div class="d-flex justify-content-center mt-4">
+    <form method="post" class="form-login w-50">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="form-group row">
+            <label for="{{ form.username.id_for_label }}" class="col-sm-4 col-form-label">{{ form.username.label }}</label>
+            <div class="col-sm-8">
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.password.id_for_label }}" class="col-sm-4 col-form-label">{{ form.password.label }}</label>
+            <div class="col-sm-8">
+                {{ form.password }}
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
